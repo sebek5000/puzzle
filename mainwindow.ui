@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -27,7 +27,7 @@
      <string>START</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="sizeLabel">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -40,7 +40,7 @@
      <string>Podaj rozmiar kwadratu</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="gameTitleLable">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -61,7 +61,7 @@
      <string>PUZZLE</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="sizeTextEdit">
     <property name="geometry">
      <rect>
       <x>180</x>

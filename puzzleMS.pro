@@ -27,14 +27,17 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        tile.cpp
+        tile.cpp \
+    puzzlepanel.cpp
 
 HEADERS += \
         mainwindow.h \
-        tile.h
+        tile.h \
+    puzzlepanel.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    puzzlepanel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "puzzlepanel.h"
 namespace Ui {
 class MainWindow;
 }
@@ -15,8 +15,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_startButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    PuzzlePanel *puzzle;
 };
 
 #endif // MAINWINDOW_H
