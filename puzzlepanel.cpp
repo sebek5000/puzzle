@@ -26,6 +26,7 @@ PuzzlePanel::PuzzlePanel(int number, QWidget *parent) :
             if(i==numberOfTiles-1 && j==numberOfTiles-1){
                 buttons[i][j]->setText("");
                 buttons[i][j]->changeIsBlank();
+                buttons[i][j]->setFocus();
             }
             // buttons[i].push_back(* (new QPushButton(this)));
             //tiles[i].push_back( *(new QTextEdit(this)));
