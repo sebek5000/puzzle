@@ -1,8 +1,9 @@
 #include "puzzlepanel.h"
 #include "ui_puzzlepanel.h"
 #include <vector>
+#include <string>
 //#include "qtextedit.h"
-//#include "qpushbutton.h"
+#include "qpushbutton.h"
 #include "tile.h"
 
 #include <iostream>
@@ -130,6 +131,24 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
                 break;
 
         }
+    numberOfMoves++;
+    if(buttons[blankCoordinateY][blankCoordinateX]->getNumber()==buttons[blankCoordinateY][blankCoordinateX]->getShownNumber()){
+        bool isWin = true;
+        for (int i=0; i<numberOfTiles; i++){
+            for(int j=0; j<numberOfTiles; j++){
+               if(buttons[i][j]->getNumber()!=buttons[i][j]->getShownNumber())
+                   isWin=false;
+            }}
+        if(isWin){
+            QPushButton *winningButton = new QPushButton(this);
+            winningButton->setText("End the Game");
+            winningButton->move(300, 0);
+            winningButton->resize(100, 40);
+            winningButton->setFocus();
+            winningButton->setVisible(true);
+            std::cout<<"Wygranko!!!" +  std::to_string(numberOfMoves)<<std::endl;
+        }
+    }
 
 }
 void PuzzlePanel::switchTiles(int X, int Y){

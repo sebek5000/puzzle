@@ -20,7 +20,7 @@ void Tile::setNumber(int number){
     this->setText(QString::number(number));
     if(number<0)
          this->setText("");
-    if(this->getNumber()==this->shownNumber)
+    if(this->getNumber()==this->getShownNumber())
         this->setStyleSheet("background-color: green}");
     else
         this->setStyleSheet("background-color: red}");
@@ -31,6 +31,9 @@ void Tile::setShownNumber(int number){
 
 int Tile::getNumber(){
     return this->number;
+}
+int Tile::getShownNumber(){
+    return this->shownNumber;
 }
 void Tile::changeIsBlank(){
     this->isBlank=!isBlank;

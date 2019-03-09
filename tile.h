@@ -15,6 +15,7 @@ public:
     void setNumber(int number);
     void setShownNumber (int number);
     int getNumber();
+    int getShownNumber();
     void changeIsBlank();
 
 };

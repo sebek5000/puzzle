@@ -24,6 +24,7 @@ private:
     int blankCoordinateX;
     int blankCoordinateY;
     Tile *buttons[10][10];
+    int numberOfMoves = 0;
 };
 
 #endif // PUZZLEPANEL_H
