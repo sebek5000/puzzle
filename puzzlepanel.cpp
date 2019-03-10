@@ -5,6 +5,7 @@
 //#include "qtextedit.h"
 #include "qpushbutton.h"
 #include "tile.h"
+#include "scoreboard.h"
 
 #include <iostream>
 PuzzlePanel::PuzzlePanel(int number, QWidget *parent) :
@@ -84,6 +85,7 @@ PuzzlePanel::PuzzlePanel(int number, QWidget *parent) :
 
 PuzzlePanel::~PuzzlePanel()
 {
+    delete winningButton;
     delete ui;
 }
 
@@ -140,13 +142,14 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
                    isWin=false;
             }}
         if(isWin){
-            QPushButton *winningButton = new QPushButton(this);
+            winningButton = new QPushButton(this);
             winningButton->setText("End the Game");
             winningButton->move(300, 0);
             winningButton->resize(100, 40);
             winningButton->setFocus();
             winningButton->setVisible(true);
             std::cout<<"Wygranko!!!" +  std::to_string(numberOfMoves)<<std::endl;
+            connect(winningButton, SIGNAL (clicked()),this, SLOT (on_winningButton_clicked()));
         }
     }
 
@@ -159,4 +162,10 @@ void PuzzlePanel::switchTiles(int X, int Y){
     blankCoordinateX+=X;
     blankCoordinateY+=Y;
     this->setFocus();
+}
+void PuzzlePanel::on_winningButton_clicked(){
+    std::cout<<"Klikniety przycisk"<<std::endl;
+    Scoreboard *board = new Scoreboard();
+    this->hide();
+    board->show();
 }

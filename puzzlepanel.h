@@ -17,6 +17,10 @@ public:
     explicit PuzzlePanel(int number, QWidget *parent = nullptr);
     ~PuzzlePanel();
     void keyPressEvent(QKeyEvent *event);
+
+private slots:
+    void on_winningButton_clicked();
+
 private:
     Ui::PuzzlePanel *ui;
     int numberOfTiles;
@@ -25,6 +29,7 @@ private:
     int blankCoordinateY;
     Tile *buttons[10][10];
     int numberOfMoves = 0;
+    QPushButton *winningButton;
 };
 
 #endif // PUZZLEPANEL_H
