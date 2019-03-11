@@ -3,7 +3,7 @@
 #include "tile.h"
 #include <QKeyEvent>
 #include <QDialog>
-
+#include <string>
 
 namespace Ui {
 class PuzzlePanel;
@@ -14,7 +14,7 @@ class PuzzlePanel : public QDialog
     Q_OBJECT
 
 public:
-    explicit PuzzlePanel(int number, QWidget *parent = nullptr);
+    explicit PuzzlePanel(int number, std::string nickname, QWidget *parent = nullptr);
     ~PuzzlePanel();
     void keyPressEvent(QKeyEvent *event);
 
@@ -30,6 +30,7 @@ private:
     Tile *buttons[10][10];
     int numberOfMoves = 0;
     QPushButton *winningButton;
+    std::string nickname;
 };
 
 #endif // PUZZLEPANEL_H

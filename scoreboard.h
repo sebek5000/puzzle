@@ -2,7 +2,7 @@
 #define SCOREBOARD_H
 
 #include <QWidget>
-
+#include <QTextBrowser>
 namespace Ui {
 class Scoreboard;
 }
@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::Scoreboard *ui;
+    QTextBrowser *scoreTextBrowser;
 };
 
 #endif // SCOREBOARD_H

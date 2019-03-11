@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>190</y>
+      <y>220</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,14 +30,14 @@
    <widget class="QLabel" name="sizeLabel">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>120</y>
+      <x>60</x>
+      <y>110</y>
       <width>121</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Podaj rozmiar kwadratu</string>
+     <string>Insert size of the square</string>
     </property>
    </widget>
    <widget class="QLabel" name="gameTitleLable">
@@ -64,9 +64,32 @@
    <widget class="QTextEdit" name="sizeTextEdit">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>150</y>
+      <x>100</x>
+      <y>140</y>
       <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nickLabel">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>110</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Choose your nickname</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="nickTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>140</y>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>

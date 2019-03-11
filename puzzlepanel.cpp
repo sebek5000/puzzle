@@ -6,13 +6,16 @@
 #include "qpushbutton.h"
 #include "tile.h"
 #include "scoreboard.h"
+#include <fstream>
 
 #include <iostream>
-PuzzlePanel::PuzzlePanel(int number, QWidget *parent) :
+PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PuzzlePanel)
 {
     ui->setupUi(this);
+    this->nickname = nickname;
+    std::cout<<nickname<<std::endl;
     numberOfTiles = number;
 //        QTextEdit **tiles =  new QTextEdit[numberOfTiles][numberOfTiles];
 //       // [numberOfTiles][numberOfTiles];// =  new QPushButton[numberOfTiles][numberOfTiles];
@@ -168,4 +171,8 @@ void PuzzlePanel::on_winningButton_clicked(){
     Scoreboard *board = new Scoreboard();
     this->hide();
     board->show();
+    std::ofstream myfile;
+      myfile.open ("score.txt");
+      myfile << nickname<<" "<<numberOfTiles<<" "<<numberOfMoves<<"\n";
+      myfile.close();
 }
