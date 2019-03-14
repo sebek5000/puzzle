@@ -10,7 +10,7 @@ Scoreboard::Scoreboard(QWidget *parent) :
     ui(new Ui::Scoreboard)
 {
     ui->setupUi(this);
-    std::string temp = "Nickname Number of Tiles Number Of Moves\n";
+    QString temp = "Nickname Number of Tiles Number Of Moves\n";
     std::string line;
     std::ifstream myFile;
     myFile.open("score.txt");
@@ -18,13 +18,13 @@ Scoreboard::Scoreboard(QWidget *parent) :
       {
         while ( getline (myFile,line) )
         {
-          temp+=line + "\n";
+          temp+=QString::fromStdString(line) + "\n";
           std::cout<<line<<std::endl;
         }
         myFile.close();
       }
 
-    ui->scoreTextBrowser->insertHtml(QString::fromStdString(temp));
+    ui->scoreTextBrowser->setText(temp);
     //scoreTextBrowser->show();
 
 }

@@ -167,12 +167,28 @@ void PuzzlePanel::switchTiles(int X, int Y){
     this->setFocus();
 }
 void PuzzlePanel::on_winningButton_clicked(){
-    std::cout<<"Klikniety przycisk"<<std::endl;
-    Scoreboard *board = new Scoreboard();
-    this->hide();
-    board->show();
-    std::ofstream myfile;
-      myfile.open ("score.txt");
-      myfile << nickname<<" "<<numberOfTiles<<" "<<numberOfMoves<<"\n";
-      myfile.close();
+
+    std::fstream myFile;
+    std::string temp = "";
+    std::string line;
+
+    myFile.open("score.txt");
+    if (myFile.is_open())
+      {
+        while ( getline (myFile,line) )
+        {
+          temp+=line + "\n";
+          std::cout<<line<<std::endl;
+        }
+      }
+     myFile.close();
+      myFile.open("score.txt");
+        std::cout<<"Ohayou!"<<temp<<std::endl;
+      myFile <<temp << nickname<<" "<<numberOfTiles<<" "<<numberOfMoves<<"\n";
+      myFile.close();
+
+      std::cout<<"Klikniety przycisk"<<std::endl;
+      Scoreboard *board = new Scoreboard();
+      this->hide();
+      board->show();
 }
