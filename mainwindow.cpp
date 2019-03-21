@@ -2,9 +2,8 @@
 #include "ui_mainwindow.h"
 #include<iostream>
 #include <string>
-
 #include "listofbestplayers.h"
-template<> std::map<int, int> ListOfBestPlayers<int>::bestFactor = *(new std::map<int, int>());
+template<> std::map<int, User<int>> ListOfBestPlayers<int>::userNumberOfTilesMap = *(new std::map<int, User<int>>());
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ListOfBestPlayers<int>::getInstance("moves.txt");
-    ListOfBestPlayers<int>::updateIfBest(13, 790);
+    ListOfBestPlayers<int>::updateIfBest(13, 27, "stefan");
 
 }
 

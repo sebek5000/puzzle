@@ -9,33 +9,45 @@
 #include <istream>
 #include <iterator>
 
-
+template<typename N> struct User{
+    N factor;
+    std::string username;
+    User(N factor, std::string username){
+        this->factor = factor;
+        this->username = username;
+    }
+    User(){}
+};
 
 template <typename T>class ListOfBestPlayers
 {
+
 public:
 
     static ListOfBestPlayers &getInstance(std::string file){
         ListOfBestPlayers instance(file);
         return instance;
     }
-    static void updateIfBest(int tiles, T factor){
-        if(bestFactor[tiles]){
-            if(bestFactor[tiles]>factor)
-                bestFactor[tiles] = factor;
+    static void updateIfBest(int tiles, T factor, std::string username){
+        if(userNumberOfTilesMap.count(tiles)){
+            if(userNumberOfTilesMap[tiles].factor > factor)
+                userNumberOfTilesMap[tiles] = User<T>(factor, username);
         }else{
-            bestFactor[tiles] = factor;
+            userNumberOfTilesMap[tiles] = User<T>(factor, username);
         }
 
-        typedef typename std::map<int, T>::iterator iterator;
-        for (iterator it=bestFactor.begin(); it!=bestFactor.end(); ++it){
-            std::cout <<"Zaczynamy"<< it->first << " => " << it->second << '\n';
+        typedef typename std::map<int, User<T>>::iterator iterator;
+        for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
+            std::cout <<"Zaczynamy"<< it->first << " => " << it->second.factor << '\n';
         }
     }
     ~ListOfBestPlayers(){
-        typedef typename std::map<int, T>::iterator iterator;
-        for (iterator it=bestFactor.begin(); it!=bestFactor.end(); ++it){
-            std::cout <<"Zaczynamy"<< it->first << " => " << it->second << '\n';
+        file.close();
+        file.open("moves.txt");
+        typedef typename std::map<int, User<T>>::iterator iterator;
+        for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
+            std::cout <<"Konczymy;/"<< it->first << " => " << it->second.username << '\n';
+            file<<it->first<<" "<<it->second.factor<<" "<<it->second.username<<"\n";
         }
         file.close();
     }
@@ -53,13 +65,14 @@ private:
               std::vector<std::string> results((std::istream_iterator<std::string>(iss)),
                                                std::istream_iterator<std::string>());
 
-              std::cout<<results[0]<<"->"<<results[1]<<std::endl;
-              //bestFactor.insert(std::stoi( results[0] ), std::stoi(results[1] ) );
-                bestFactor[std::stoi( results[0])] = std::stoi(results[1]);
+              std::cout<<results[0]<<"->"<<results[1]<<"->"<<results[2]<<std::endl;
+              //userNumberOfTilesMap.insert(std::stoi( results[0] ), std::stoi(results[1] ) );
+               userNumberOfTilesMap[std::stoi( results[0])] = User<T>(std::stoi(results[1]), results[2]);
             }
           }
     }
-    static std::map<int, T> bestFactor;
+    static std::map<int, User<T>> userNumberOfTilesMap;
 };
+
 
 #endif // LISTOFBESTPLAYERS_H
