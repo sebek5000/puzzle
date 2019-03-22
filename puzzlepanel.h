@@ -4,6 +4,7 @@
 #include <QKeyEvent>
 #include <QDialog>
 #include <string>
+#include <ctime>
 
 namespace Ui {
 class PuzzlePanel;
@@ -31,6 +32,8 @@ private:
     int numberOfMoves = 0;
     QPushButton *winningButton;
     std::string nickname;
+    std::time_t beginningOfTimeCalculation;
+    double timeInMinutes;
 };
 
 #endif // PUZZLEPANEL_H

@@ -4,33 +4,31 @@
 #include <string>
 #include <QString>
 #include <iostream>
-
+#include "listofbestplayers.h"
+#include "mainwindow.h"
 Scoreboard::Scoreboard(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Scoreboard)
 {
     ui->setupUi(this);
-    QString temp = "Nickname Number of Tiles Number Of Moves\n";
-    std::string line;
-    std::ifstream myFile;
-    myFile.open("score.txt");
-    if (myFile.is_open())
-      {
-        while ( getline (myFile,line) )
-        {
-          temp+=QString::fromStdString(line) + "\n";
-          std::cout<<line<<std::endl;
-        }
-        myFile.close();
-      }
+    std::string text;
+    text = ListOfBestPlayers<int>::stringFromMap();
+    text += "\n\n\n";
+    text += ListOfBestPlayers<double>::stringFromMap();
 
-    ui->scoreTextBrowser->setText(temp);
-    //scoreTextBrowser->show();
-
+    ui->scoreTextBrowser->setText(QString::fromStdString(text));
 }
 
 Scoreboard::~Scoreboard()
 {
     delete ui;
     delete scoreTextBrowser;
+}
+
+void Scoreboard::on_newGameButton_clicked()
+{
+    MainWindow w;
+    w.show();
+    this->hide();
+
 }

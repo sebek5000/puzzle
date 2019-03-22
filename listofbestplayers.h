@@ -36,14 +36,12 @@ public:
             userNumberOfTilesMap[tiles] = User<T>(factor, username);
         }
 
-        typedef typename std::map<int, User<T>>::iterator iterator;
-        for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
-            std::cout <<"Zaczynamy"<< it->first << " => " << it->second.factor << '\n';
-        }
+
     }
-    ~ListOfBestPlayers(){
-        file.close();
-        file.open("moves.txt");
+    ~ListOfBestPlayers(){}
+
+    static void saveToFile(){
+        file.open(fileName);
         typedef typename std::map<int, User<T>>::iterator iterator;
         for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
             std::cout <<"Konczymy;/"<< it->first << " => " << it->second.username << '\n';
@@ -51,10 +49,21 @@ public:
         }
         file.close();
     }
+    static std::string stringFromMap(){
+        std::stringstream text;
+        //std::string text ="";
+        typedef typename std::map<int, User<T>>::iterator iterator;
+        for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
+            text << it->first << " " << it->second.factor << " " << it->second.username << "\n";
+        }
+        return text.str();
+    }
 private:
-    std::fstream file;
+    static std::fstream file;
+    static std::string fileName;
     ListOfBestPlayers(const ListOfBestPlayers &);
     ListOfBestPlayers(std::string fileName){
+        this->fileName = fileName;
         file.open(fileName);
         std::string line;
         if (file.is_open())
@@ -70,6 +79,7 @@ private:
                userNumberOfTilesMap[std::stoi( results[0])] = User<T>(std::stoi(results[1]), results[2]);
             }
           }
+        file.close();
     }
     static std::map<int, User<T>> userNumberOfTilesMap;
 };

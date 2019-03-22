@@ -9,6 +9,15 @@
 #include <fstream>
 
 #include <iostream>
+
+#include "listofbestplayers.h"
+template<> std::map<int, User<int>> ListOfBestPlayers<int>::userNumberOfTilesMap = *(new std::map<int, User<int>>());
+template<> std::fstream ListOfBestPlayers<int>::file = std::fstream();
+template<> std::string ListOfBestPlayers<int>::fileName = "";
+
+template<> std::map<int, User<double>> ListOfBestPlayers<double>::userNumberOfTilesMap = *(new std::map<int, User<double>>());
+template<> std::fstream ListOfBestPlayers<double>::file = std::fstream();
+template<> std::string ListOfBestPlayers<double>::fileName = "";
 PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PuzzlePanel)
@@ -17,14 +26,14 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
     this->nickname = nickname;
     std::cout<<nickname<<std::endl;
     numberOfTiles = number;
-//        QTextEdit **tiles =  new QTextEdit[numberOfTiles][numberOfTiles];
-//       // [numberOfTiles][numberOfTiles];// =  new QPushButton[numberOfTiles][numberOfTiles];
-//    std::vector< std::vector < QTextEdit> > tiles;// = new std::vector< std::vector < QTextEdit > >();
-//    std::vector< std::vector < QPushButton > > buttons;
+
+    beginningOfTimeCalculation = std::time(nullptr);
+        std::cout << std::asctime(std::localtime(&beginningOfTimeCalculation))
+                  << beginningOfTimeCalculation << " seconds since the Epoch\n";
 
     for (int i=0; i<numberOfTiles; i++){
         for(int j=0; j<numberOfTiles; j++){
-            buttons[i][j] = new Tile(numberOfTiles, this);//QPushButton(this);
+            buttons[i][j] = new Tile(numberOfTiles, this);
             buttons[i][j]->setShownNumber(j+numberOfTiles*i);
             buttons[i][j]->setNumber(j+numberOfTiles*i);
             buttons[i][j]->move(40*j, 40*i);
@@ -145,6 +154,13 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
                    isWin=false;
             }}
         if(isWin){
+            std::time_t endOfTimeCalculation = std::time(nullptr);
+                std::cout << std::asctime(std::localtime(&endOfTimeCalculation))
+                          << endOfTimeCalculation << " seconds since the Epoch2\n";
+                std::cout<<"Differenze: "<<endOfTimeCalculation - beginningOfTimeCalculation<<std::endl;
+            double timeInMinutes = (double)(endOfTimeCalculation - beginningOfTimeCalculation)/(double)60;
+            std::cout<<"Czas w minutach: "<<timeInMinutes<<std::endl;
+            this->timeInMinutes = timeInMinutes;
             winningButton = new QPushButton(this);
             winningButton->setText("End the Game");
             winningButton->move(300, 0);
@@ -168,24 +184,13 @@ void PuzzlePanel::switchTiles(int X, int Y){
 }
 void PuzzlePanel::on_winningButton_clicked(){
 
-    std::fstream myFile;
-    std::string temp = "";
-    std::string line;
 
-    myFile.open("score.txt");
-    if (myFile.is_open())
-      {
-        while ( getline (myFile,line) )
-        {
-          temp+=line + "\n";
-          std::cout<<line<<std::endl;
-        }
-      }
-     myFile.close();
-      myFile.open("score.txt");
-        std::cout<<"Ohayou!"<<temp<<std::endl;
-      myFile <<temp << nickname<<" "<<numberOfTiles<<" "<<numberOfMoves<<"\n";
-      myFile.close();
+    ListOfBestPlayers<int>::getInstance("moves.txt");
+    ListOfBestPlayers<int>::updateIfBest(numberOfTiles, numberOfMoves, nickname);
+    ListOfBestPlayers<int>::saveToFile();
+    ListOfBestPlayers<double>::getInstance("time.txt");
+    ListOfBestPlayers<double>::updateIfBest(numberOfTiles, timeInMinutes, nickname);
+    ListOfBestPlayers<double>::saveToFile();
 
       std::cout<<"Klikniety przycisk"<<std::endl;
       Scoreboard *board = new Scoreboard();

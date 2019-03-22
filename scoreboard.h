@@ -15,6 +15,9 @@ public:
     explicit Scoreboard(QWidget *parent = nullptr);
     ~Scoreboard();
 
+private slots:
+    void on_newGameButton_clicked();
+
 private:
     Ui::Scoreboard *ui;
     QTextBrowser *scoreTextBrowser;
