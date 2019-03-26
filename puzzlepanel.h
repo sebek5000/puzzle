@@ -22,6 +22,8 @@ public:
 private slots:
     void on_winningButton_clicked();
 
+    void on_newGame_clicked();
+
 private:
     Ui::PuzzlePanel *ui;
     int numberOfTiles;

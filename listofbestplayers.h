@@ -41,12 +41,16 @@ public:
     ~ListOfBestPlayers(){}
 
     static void saveToFile(){
-        file.open(fileName);
+        file.open(fileName, std::ofstream::out | std::ofstream::trunc);
         typedef typename std::map<int, User<T>>::iterator iterator;
-        for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
-            std::cout <<"Konczymy;/"<< it->first << " => " << it->second.username << '\n';
-            file<<it->first<<" "<<it->second.factor<<" "<<it->second.username<<"\n";
-        }
+        if (file.is_open())
+          {
+           for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
+            std::cout <<"Zapisujemy ;/"<< it->first << " => " <<it->second.factor<<" ->>" << it->second.username << '\n';
+            file<<it->first<<" "<<it->second.factor<<" "<<it->second.username;
+            if(it!=userNumberOfTilesMap.end())
+             file<< "\n";
+        }}
         file.close();
     }
     static std::string stringFromMap(){
@@ -54,7 +58,10 @@ public:
         //std::string text ="";
         typedef typename std::map<int, User<T>>::iterator iterator;
         for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
-            text << it->first << " " << it->second.factor << " " << it->second.username << "\n";
+            std::cout<<"Przy przerobianiu mapy na stringi "<<it->first<<"->"<<it->second.factor<<"->"<<it->second.username<<std::endl;
+            text << it->first << " " << it->second.factor << " " << it->second.username;
+            if(it!=userNumberOfTilesMap.end())
+             text<< "\n";
         }
         return text.str();
     }
@@ -71,12 +78,14 @@ private:
             while ( getline (file,line) )
             {
                 std::istringstream iss(line);
+                if(line == "")
+                    break;
               std::vector<std::string> results((std::istream_iterator<std::string>(iss)),
                                                std::istream_iterator<std::string>());
 
               std::cout<<results[0]<<"->"<<results[1]<<"->"<<results[2]<<std::endl;
               //userNumberOfTilesMap.insert(std::stoi( results[0] ), std::stoi(results[1] ) );
-               userNumberOfTilesMap[std::stoi( results[0])] = User<T>(std::stoi(results[1]), results[2]);
+               userNumberOfTilesMap[std::stoi( results[0])] = User<T>(std::stod(results[1]), results[2]);
             }
           }
         file.close();

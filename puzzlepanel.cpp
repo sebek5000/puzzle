@@ -7,7 +7,7 @@
 #include "tile.h"
 #include "scoreboard.h"
 #include <fstream>
-
+#include "mainwindow.h"
 #include <iostream>
 
 #include "listofbestplayers.h"
@@ -196,4 +196,11 @@ void PuzzlePanel::on_winningButton_clicked(){
       Scoreboard *board = new Scoreboard();
       this->hide();
       board->show();
+}
+
+void PuzzlePanel::on_newGame_clicked()
+{
+    this->hide();
+    MainWindow *w = new MainWindow();
+    w->show();
 }

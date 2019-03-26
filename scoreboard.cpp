@@ -1,6 +1,5 @@
 #include "scoreboard.h"
 #include "ui_scoreboard.h"
-#include <fstream>
 #include <string>
 #include <QString>
 #include <iostream>
@@ -27,8 +26,8 @@ Scoreboard::~Scoreboard()
 
 void Scoreboard::on_newGameButton_clicked()
 {
-    MainWindow w;
-    w.show();
+    MainWindow *w = new MainWindow();
+    w->show();
     this->hide();
 
 }
