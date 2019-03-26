@@ -2,15 +2,13 @@
 #include "ui_puzzlepanel.h"
 #include <vector>
 #include <string>
-//#include "qtextedit.h"
 #include "qpushbutton.h"
 #include "tile.h"
 #include "scoreboard.h"
 #include <fstream>
 #include "mainwindow.h"
-#include <iostream>
-
 #include "listofbestplayers.h"
+
 template<> std::map<int, User<int>> ListOfBestPlayers<int>::userNumberOfTilesMap = *(new std::map<int, User<int>>());
 template<> std::fstream ListOfBestPlayers<int>::file = std::fstream();
 template<> std::string ListOfBestPlayers<int>::fileName = "";
@@ -24,12 +22,8 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
 {
     ui->setupUi(this);
     this->nickname = nickname;
-    std::cout<<nickname<<std::endl;
     numberOfTiles = number;
-
     beginningOfTimeCalculation = std::time(nullptr);
-        std::cout << std::asctime(std::localtime(&beginningOfTimeCalculation))
-                  << beginningOfTimeCalculation << " seconds since the Epoch\n";
 
     for (int i=0; i<numberOfTiles; i++){
         for(int j=0; j<numberOfTiles; j++){
@@ -43,7 +37,7 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
                 buttons[i][j]->changeIsBlank();
                 blankCoordinateX = j;
                 blankCoordinateY = i;
-                this->setFocus();//TODO this causes that 1st tile has a frame of being active added
+                this->setFocus();
             }
         }}
     for(int i=0; i<100; i++){//random setting of the board
@@ -51,7 +45,6 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
         switch(arrow)
             {
             case 0:{
-               std::cout<<"Kliknieta strzala  up"<<std::endl;
                if(blankCoordinateY==0)
                    std::cout<<"Poza ekranem!"<<std::endl;
                else{
@@ -60,7 +53,6 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
         }
                 break;
         case 1:{
-                std::cout<<"Kliknieta strzala down"<<std::endl;
                 if(blankCoordinateY==numberOfTiles-1)
                     std::cout<<"Poza ekranem!"<<std::endl;
                 else{
@@ -70,7 +62,6 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
                 break;
 
         case 2:{
-            std::cout<<"Kliknieta strzala left"<<std::endl;
             if(blankCoordinateX==0)
                 std::cout<<"Poza ekranem!"<<std::endl;
             else{
@@ -78,7 +69,6 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
             }
                 }break;
         case 3:{
-                std::cout<<"Kliknieta strzala right"<<std::endl;
                 if(blankCoordinateX==numberOfTiles-1)
                     std::cout<<"Poza ekranem!"<<std::endl;
                 else{
@@ -88,11 +78,8 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
             default:
                     std::cout<<"ERROR"<<std::endl;;
                     break;
-
             }
-
     }
-
 }
 
 PuzzlePanel::~PuzzlePanel()

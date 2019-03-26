@@ -6,12 +6,18 @@
 namespace Ui {
 class MainWindow;
 }
-
+/**
+ * @brief Klasa odpowiedzialna za okno powitalne programu
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Konstruktor parametrowy
+     * @param parent opcjonalny rodzic
+     */
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

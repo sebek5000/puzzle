@@ -1,9 +1,5 @@
 #include "tile.h"
 #include <iostream>
-Tile::Tile(){
-    this->setNumber(0);
-    this->shownNumber = 0;
-}
 
 Tile::Tile(int number, QWidget *parent) : QPushButton(parent){
 

@@ -20,9 +20,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_startButton_clicked()
 {
     int sizeNumber = ui->sizeTextEdit->toPlainText().toInt(); //0 if convertion fails
-     std::string nickname = ui->nickTextEdit->toPlainText().toStdString();
-    //TODO maybe exception or something
-    if(sizeNumber>=2 && sizeNumber<=7){
+    std::string nickname = ui->nickTextEdit->toPlainText().toStdString();
+    if(sizeNumber>=2 && sizeNumber<=7){ //for 8+ there are too many tiles
         std::cout<<sizeNumber<<std::endl;
         this->hide();
         puzzle = new PuzzlePanel(sizeNumber, nickname, this);

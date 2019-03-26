@@ -9,19 +9,27 @@
 namespace Ui {
 class PuzzlePanel;
 }
-
+/**
+ * @brief Klasa odpowiedzialna za panel z układanką
+ */
 class PuzzlePanel : public QDialog
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Konstruktor parametrowy
+     * @param number liczba płytek w układance (rozmiar kwadratu)
+     * @param nickname nazwa użytkownika
+     * @param parent opcjonalny rodzic
+     */
     explicit PuzzlePanel(int number, std::string nickname, QWidget *parent = nullptr);
     ~PuzzlePanel();
-    void keyPressEvent(QKeyEvent *event);
+
 
 private slots:
     void on_winningButton_clicked();
-
+    void keyPressEvent(QKeyEvent *event);
     void on_newGame_clicked();
 
 private:
