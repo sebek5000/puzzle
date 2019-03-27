@@ -2,7 +2,6 @@
 #include <iostream>
 
 Tile::Tile(int number, QWidget *parent) : QPushButton(parent){
-
     if(number >0)
         this->setNumber(number);
     this->shownNumber = 0;
@@ -36,7 +35,6 @@ void Tile::changeIsBlank(){
     if(this->isBlank){
         this->setFocus();
         this->setNumber(-1);
-       // std::cout<<"Im blank"<<std::endl;
 }
     }
 

@@ -7,6 +7,7 @@
 #include <vector>
 #include <sstream>
 #include <iterator>
+#include <iomanip>
 
 /*! /brief struktura użytkownika
 *
@@ -83,7 +84,7 @@ public:
         std::stringstream text;
         typedef typename std::map<int, User<T>>::iterator iterator;
         for (iterator it=userNumberOfTilesMap.begin(); it!=userNumberOfTilesMap.end(); ++it){
-            text << it->first << " " << it->second.factor << " " << it->second.username;
+            text << it->first << "              " <<it->second.factor << std::fixed<<std::setprecision(7) << "             " << it->second.username;
             if(it!=userNumberOfTilesMap.end())
              text<< "\n";
         }

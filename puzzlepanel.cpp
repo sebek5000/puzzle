@@ -82,8 +82,7 @@ PuzzlePanel::PuzzlePanel(int number, std::string nickname, QWidget *parent) :
     }
 }
 
-PuzzlePanel::~PuzzlePanel()
-{
+PuzzlePanel::~PuzzlePanel(){
     delete winningButton;
     delete ui;
 }
@@ -99,8 +98,8 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
            else{
             switchTiles(0, -1);
            }
-    }
-            break;
+          }
+          break;
     case Qt::Key_Down:{
             std::cout<<"Kliknieta strzala down"<<std::endl;
             if(blankCoordinateY==numberOfTiles-1)
@@ -108,8 +107,8 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
             else{
             switchTiles(0, 1);
             }
-  }
-            break;
+           }
+           break;
 
     case Qt::Key_Left:{
         std::cout<<"Kliknieta strzala left"<<std::endl;
@@ -130,7 +129,6 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
         default:
                 event->ignore();
                 break;
-
         }
     numberOfMoves++;
     if(buttons[blankCoordinateY][blankCoordinateX]->getNumber()==buttons[blankCoordinateY][blankCoordinateX]->getShownNumber()){
@@ -142,9 +140,6 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
             }}
         if(isWin){
             std::time_t endOfTimeCalculation = std::time(nullptr);
-                std::cout << std::asctime(std::localtime(&endOfTimeCalculation))
-                          << endOfTimeCalculation << " seconds since the Epoch2\n";
-                std::cout<<"Differenze: "<<endOfTimeCalculation - beginningOfTimeCalculation<<std::endl;
             double timeInMinutes = (double)(endOfTimeCalculation - beginningOfTimeCalculation)/(double)60;
             std::cout<<"Czas w minutach: "<<timeInMinutes<<std::endl;
             this->timeInMinutes = timeInMinutes;
@@ -154,7 +149,6 @@ void PuzzlePanel::keyPressEvent(QKeyEvent *event){
             winningButton->resize(100, 40);
             winningButton->setFocus();
             winningButton->setVisible(true);
-            std::cout<<"Wygranko!!!" +  std::to_string(numberOfMoves)<<std::endl;
             connect(winningButton, SIGNAL (clicked()),this, SLOT (on_winningButton_clicked()));
         }
     }
@@ -170,8 +164,6 @@ void PuzzlePanel::switchTiles(int X, int Y){
     this->setFocus();
 }
 void PuzzlePanel::on_winningButton_clicked(){
-
-
     ListOfBestPlayers<int>::getInstance("moves.txt");
     ListOfBestPlayers<int>::updateIfBest(numberOfTiles, numberOfMoves, nickname);
     ListOfBestPlayers<int>::saveToFile();
@@ -179,14 +171,12 @@ void PuzzlePanel::on_winningButton_clicked(){
     ListOfBestPlayers<double>::updateIfBest(numberOfTiles, timeInMinutes, nickname);
     ListOfBestPlayers<double>::saveToFile();
 
-      std::cout<<"Klikniety przycisk"<<std::endl;
-      Scoreboard *board = new Scoreboard();
-      this->hide();
-      board->show();
+    Scoreboard *board = new Scoreboard();
+    this->hide();
+    board->show();
 }
 
-void PuzzlePanel::on_newGame_clicked()
-{
+void PuzzlePanel::on_newGame_clicked(){
     this->hide();
     MainWindow *w = new MainWindow();
     w->show();

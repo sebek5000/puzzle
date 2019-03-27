@@ -11,23 +11,24 @@ Scoreboard::Scoreboard(QWidget *parent) :
 {
     ui->setupUi(this);
     std::string text;
-    text = ListOfBestPlayers<int>::stringFromMap();
+    text+="number   number   username\n";
+    text+="of tiles    of moves\n";
+    text += ListOfBestPlayers<int>::stringFromMap();
     text += "\n\n\n";
+    text+="number   time                        username\n";
+    text+="of tiles     in min\n";
     text += ListOfBestPlayers<double>::stringFromMap();
 
     ui->scoreTextBrowser->setText(QString::fromStdString(text));
 }
 
-Scoreboard::~Scoreboard()
-{
+Scoreboard::~Scoreboard(){
     delete ui;
     delete scoreTextBrowser;
 }
 
-void Scoreboard::on_newGameButton_clicked()
-{
+void Scoreboard::on_newGameButton_clicked(){
     MainWindow *w = new MainWindow();
     w->show();
     this->hide();
-
 }

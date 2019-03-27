@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Scoreboard</string>
   </property>
   <widget class="QTextBrowser" name="scoreTextBrowser">
    <property name="geometry">
